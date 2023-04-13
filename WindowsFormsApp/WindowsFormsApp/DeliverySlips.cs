@@ -46,6 +46,7 @@ namespace WindowsFormsApp
             
         }
 
+        //load all data passed from Export form and fill into textbox
         private void load_infor_export()
         {
             txtAgent.Text = this.nameOfAgent;
@@ -60,6 +61,8 @@ namespace WindowsFormsApp
 
             load_datagridview(idOrder);
         }
+
+        //load all phones of order to datagridview
         private void load_datagridview(string id)
         {
             String query = "select p.name,p.price,aod.quantity,(p.price * aod.quantity) as 'price'\r\nfrom agent_order_detail aod, agent_order ao, phones p\r\nwhere aod.order_id = ao.id and p.id = aod.id_phone and aod.order_id =" + id;

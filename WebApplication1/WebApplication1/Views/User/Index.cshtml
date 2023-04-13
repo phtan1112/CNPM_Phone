@@ -2,39 +2,18 @@
 @{
     ViewBag.Title = "Index";
 }
-
-@*
-<form action="/User/Index" method="POST" class="form1">
-    <h2 style="text-align:center;">Login Form</h2>
-    <div class="container1">
-        <label><b>Username</b></label>
-        <input id="username" type="text" placeholder="Enter Username" name="Username" required>
-
-        <label><b>Password</b></label>
-        <input id="password" type="password" placeholder="Enter Password" name="Password" required>
-
-        <button class="btn-login" type="submit">Login</button>
-
-    </div>
-
-</form>*@
-
-<form action="/User/Index" method="POST">
-    <h2 style="text-align:center;">Login Form</h2>
+<form action="/User/Index" method="POST" style="margin: 50px;">
+    <h2>Login For Agent</h2>
     <div class="form-outline mb-6" >
         <label class="form-label">Username</label>
         <input type="text" id="form2Example1" class="form-control" name="Username" required />
 
     </div>
-
-    <!-- Password input -->
-    <div class="form-outline mb-6">
+    <div style="margin-top: 10px;" class="form-outline mb-6">
         <label class="form-label" for="form2Example2">Password</label>
         <input type="password" id="password" class="form-control" name="Password" required />
 
     </div>
-
-    <!-- Submit button -->
-    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+    <button type="submit" class="btn btn-primary btn-block" style="width: 10%;margin-top: 20px">Sign in</button>
 
 </form>

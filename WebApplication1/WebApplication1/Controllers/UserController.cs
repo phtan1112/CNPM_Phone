@@ -18,6 +18,8 @@ namespace WebApplication1.Controllers
         }
 
 
+
+        //the button submit input username and password and check account agent that has exist in database or not
         [HttpPost]
         public ActionResult Index(LoginClass lc)
         {

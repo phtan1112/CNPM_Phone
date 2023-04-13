@@ -34,6 +34,8 @@ namespace WindowsFormsApp
         }
 
        
+
+        //get all data of agent and load into datagridview first
         private void load_form_list_of_agent()
         {
             conn.Open();
@@ -46,6 +48,7 @@ namespace WindowsFormsApp
             conn.Close();   
         }
 
+        // click one of these accountant and will load all order of agent clicked
         private void dataGridViewAgent_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex == -1) return;
@@ -59,6 +62,8 @@ namespace WindowsFormsApp
                 numberphone_of_agent = row.Cells[3].Value.ToString();
             }
         }
+
+        //load all orders of agent clicked
         private void Load_order_of_specific_agent(string id)
         {
             indexAgent = id;
@@ -71,6 +76,8 @@ namespace WindowsFormsApp
             conn.Close();
         }
 
+
+        // click one of these order of accountant and will load all information of this order into final datagridview and fill Textbox
         private void dataGridViewOrders_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             
@@ -107,6 +114,7 @@ namespace WindowsFormsApp
             }
         }
 
+        //load all phones of order clicked
         private void dataGridViewOrderDetails(string idOfOrder)
         {
             String query = "select  p.id, p.name,p.price,aod.quantity,(p.price * aod.quantity) as 'price'\r\nfrom agent_order_detail aod, agent_order ao, phones p\r\nwhere aod.order_id = ao.id and p.id = aod.id_phone and aod.order_id =" + idOfOrder;
@@ -124,6 +132,7 @@ namespace WindowsFormsApp
             conn.Close();
         }
 
+        // click button Export and this will show a bill form with all phone and total price
         private void btnExport_Click(object sender, EventArgs e)
         {
             //btnExport
@@ -190,6 +199,50 @@ namespace WindowsFormsApp
                     new DeliverySlips(name_of_agent, address_of_agent, numberphone_of_agent, txtDateOrder.Text,
                    "Delivering", txtStatusPayment.Text, txtTotal.Text, txtMethod.Text, indexOrder);
                 DS.Show();
+            }
+        }
+        // click button Update to update status pay and status order of order's agent
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            //btnUpdate
+            if (txtDateOrder.Text == "")
+            {
+                MessageBox.Show("Make sure that you clicked the order!!");
+            }
+           
+            else
+            {
+                
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                foreach (DataGridViewRow row in dataGridViewOrders.Rows)
+                {
+                    
+                    if (row.Cells[0].Value != null)
+                    {
+                        string idOfOrder = row.Cells["id"].Value.ToString();
+                        
+                        bool check_pay = (bool)row.Cells["status_pay"].Value;
+                        bool check_shipping = (bool)row.Cells["status_order"].Value;
+
+                        int i_pay = check_pay == true ? 1 : 0;
+                        int i_shipping = check_shipping == true ? 1 : 0;
+
+                        string queryChangeStatusPay = "update agent_order set status_order="+ i_shipping  + ",status_pay = "+ i_pay + " where id = " + idOfOrder;
+                        cmd = new SqlCommand(queryChangeStatusPay, conn);
+                        cmd.ExecuteNonQuery();
+                        txtOrderStatus.Text = check_shipping ==true ? "delivering":"processing";
+                        txtStatusPayment.Text = check_pay == true ? "Pay Successful" : "Ain't pay";
+                    }
+                }
+               
+
+                conn.Close();
+
+                //load datagridview order of agent
+                Load_order_of_specific_agent(indexAgent);
+
+                MessageBox.Show("Update successful!");
             }
         }
     }

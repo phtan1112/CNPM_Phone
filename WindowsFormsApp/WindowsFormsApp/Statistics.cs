@@ -25,6 +25,9 @@ namespace WindowsFormsApp
             Best Selling Product
             Revenue Monthly
          */
+
+
+        //load four types of staticstic and handle to call Procedure
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             conn.Open();

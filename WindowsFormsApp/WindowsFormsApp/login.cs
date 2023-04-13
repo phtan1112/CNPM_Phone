@@ -16,8 +16,10 @@ namespace WindowsFormsApp
             this.ActiveControl = txtUsername;
             txtUsername.Focus();
         }
-        
-        private void button1_Click(object sender, EventArgs e)
+
+        // after click login, check account with input username and password has exist in database or not.
+        // if yes, direct to main form
+        private void button1_Click(object sender, EventArgs e) 
         {
             string username = txtUsername.Text;
             string pass = txtPass.Text;
@@ -47,7 +49,9 @@ namespace WindowsFormsApp
                 }
             }
         }
-        private bool check_Account(string name, string pass)
+
+        //check username and password that has exist database or not
+        private bool check_Account(string name, string pass) 
         {
             
             conn.Open();

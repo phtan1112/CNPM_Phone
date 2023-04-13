@@ -22,6 +22,7 @@ namespace WindowsFormsApp
             this.id_accountant  = id;
         }
 
+        // click Create button to create account's agent and check validate.
         private void button1_Click(object sender, EventArgs e)
         {
             if(txtName.Text == "")

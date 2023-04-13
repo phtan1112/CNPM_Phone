@@ -37,6 +37,7 @@
             this.dataGridViewAgent = new System.Windows.Forms.DataGridView();
             this.btnExport = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.txtMethod = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtStatusPayment = new System.Windows.Forms.TextBox();
@@ -162,6 +163,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnUpdate);
             this.groupBox3.Controls.Add(this.txtMethod);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.txtStatusPayment);
@@ -178,10 +180,25 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(1106, 258);
+            this.groupBox3.Size = new System.Drawing.Size(1372, 258);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "List of Orders";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.btnUpdate.Location = new System.Drawing.Point(1151, 142);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(157, 85);
+            this.btnUpdate.TabIndex = 21;
+            this.btnUpdate.Text = "Update Status";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // txtMethod
             // 
@@ -337,5 +354,6 @@
         private System.Windows.Forms.DataGridView dataGridViewOrderDetail;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

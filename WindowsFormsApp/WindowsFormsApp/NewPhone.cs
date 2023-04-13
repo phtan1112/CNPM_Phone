@@ -29,7 +29,7 @@ namespace WindowsFormsApp
             
         }
 
-
+        //load all phone groups into combobox
         private void load_categories_intoComboBox()
          {
              conn.Open();   
@@ -46,6 +46,7 @@ namespace WindowsFormsApp
            
          }
 
+        //after they enter all textbox required so add to below datagrid to review all phone that will prepare to import
         private void btnAddPhone_Click(object sender, EventArgs e)
         {
             if (validate_add())
@@ -69,6 +70,8 @@ namespace WindowsFormsApp
 
             }
         }
+
+        // add all phone of datagrid below to database
         private void btnImport_Click(object sender, EventArgs e)
         {
             if (dataGridView1.Rows[0].Cells[0].Value != null)
@@ -131,6 +134,8 @@ namespace WindowsFormsApp
             }
             
         }
+
+        //get id of phone group from name of group
         public int getIdOfCategory(string name_category)
         {
             
@@ -140,6 +145,7 @@ namespace WindowsFormsApp
             return idCate;
         }
        
+        //validate of textbox
         public bool validate_add()
         {
             int num;

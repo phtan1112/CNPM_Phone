@@ -29,23 +29,8 @@ namespace WindowsFormsApp
             load_goods_into_comboBox();
             this.idOfAccoutant = id;
         }
-  
-       /* private void load_categories_intoComboBox()
-        {
-            conn.Open();   
-            string query = "select * from phone_group";
-            SqlDataAdapter da = new SqlDataAdapter(query,conn);
-            
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-            comboBox1.DataSource = ds.Tables[0];
-            comboBox1.DisplayMember= "name";    
-            comboBox1.ValueMember = "id";
-            conn.Close();
-
-            
-        }*/
         
+        //insert all phones has exist into comboBox for Accountant to select
         private void load_goods_into_comboBox()
         {
             string query = "select * from phones";
@@ -58,6 +43,8 @@ namespace WindowsFormsApp
             comboBox2.ValueMember = "id";
             conn.Close();
         }
+
+        //insert all phones into datagridview
         private void load_goods_existing()
         {
             string query = "select p.id, p.name, p.price,p.quantity,p.image,pg.name from phones p, phone_group pg\r\nwhere p.group_id = pg.id";
@@ -70,6 +57,7 @@ namespace WindowsFormsApp
 
         }
         
+        //after click import button so the quantity of phone will plus with available number that you selected
         private void btnImport_Click(object sender, EventArgs e)
         {
             int num;
@@ -150,10 +138,10 @@ namespace WindowsFormsApp
                 
             }
         }
-       
 
 
-    private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        //after click a row of phone in datagridview, data of phone clicked will be fill on textbox and combobox above for accountant change
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex == -1) return;
 
@@ -166,6 +154,7 @@ namespace WindowsFormsApp
             }
         }
 
+        //after click update button so the quantity and price(if they change price) of phone that you selected will be update
         private void btnUpdate_Click(object sender, EventArgs e) //btnUpdate, update luon quantity
         {
             int num;

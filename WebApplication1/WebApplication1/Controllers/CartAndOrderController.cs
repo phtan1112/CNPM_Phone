@@ -15,6 +15,7 @@ namespace WebApplication1.Controllers
         private string cart = "Cart";
 
         // GET: CartAndOrder
+        //load all phones that agent add to cart of this agent (load phone added into cart)
         public ActionResult Index()
         {
             if (Session["username"] != null)
@@ -28,6 +29,7 @@ namespace WebApplication1.Controllers
             
         }
 
+        // when click  "add to cart" all of these phone will add into cart and show all phones
         public ActionResult OrderNow(string id)
         {
            
@@ -64,6 +66,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
+        //check this phone is going to add that exist in cart or not, if yes, will plus quantity
         private int IsExisting(string id)
         {
             List<Cart> carts = (List<Cart>)Session[cart];
@@ -79,6 +82,7 @@ namespace WebApplication1.Controllers
             return -1;
         }
 
+        //delephone from cart
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -104,7 +108,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
-
+        //update quantity when agent change quantity in cart
         public ActionResult UpdateOrder(FormCollection formCollection)
         {
             string[] quantities = formCollection.GetValues("quantity");
@@ -121,6 +125,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index");
         }
 
+        //agent click checkout button so will be displayed the ProgressingCash to choose the method pay
         public ActionResult ProcessingCash()
         {
            
@@ -134,6 +139,7 @@ namespace WebApplication1.Controllers
             }
         }
 
+        //after choose method pay and click "Done" button so all phones in cart will order and add into database
         public ActionResult Cash(FormCollection formCollection)
         {
             List<Cart> carts = (List<Cart>)Session[cart];
@@ -181,6 +187,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Orders");
         }
 
+        //load all orders of agent into view
         public ActionResult Orders()
         {
             if (Session["username"] != null)
@@ -198,8 +205,14 @@ namespace WebApplication1.Controllers
            
         }
 
+        //click "see detail" on each order of agent so that show all phones of order clicked
         public ActionResult OrderDetail(int id)
         {
+            if (id.ToString() == null)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
+
             if (id.ToString() != null && Session["username"] != null)
             {
                 var orderDetail = db.agent_order_detail.Where(o => o.order_id == id).ToList();

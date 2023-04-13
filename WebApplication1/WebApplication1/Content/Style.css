@@ -111,8 +111,7 @@ td {
 
 .form1 {
     border: 3px solid #f1f1f1;
-   
-    padding:200px;
+    padding: 200px;
 }
 
 .container1 input[type=text],
@@ -143,15 +142,14 @@ td {
     padding: 16px;
 }
 
-.tag-a{
-    text-decoration:none;
+.tag-a {
+    text-decoration: none;
     color: #fff;
-    
 }
 
-.tag-a:hover {
-   opacity: 0.9;
-}
-.btn1{
+    .tag-a:hover {
+        opacity: 0.9;
+    }
 
+.btn1 {
 }

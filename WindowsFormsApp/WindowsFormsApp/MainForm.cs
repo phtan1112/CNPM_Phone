@@ -26,7 +26,9 @@ namespace WindowsFormsApp
             setNameAccountant();
             setIDOfAccountant();
         }
-        private void setIDOfAccountant()
+
+        // set id when accountant login success and assign id for all form in main form
+        private void setIDOfAccountant() 
         {
             int getUserID;
             conn.Open();
@@ -49,6 +51,7 @@ namespace WindowsFormsApp
             Application.Exit();
         }
 
+        // after click existphone in menutrip so a small form will be displayed
         private void existPhoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExistPhone exist = new ExistPhone(this.id_accountant);
@@ -58,6 +61,7 @@ namespace WindowsFormsApp
             exist.Show();
         }
 
+        // after click newphone in menutrip so a small form will be displayed
         private void newPhoneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewPhone newFrm = new NewPhone(this.id_accountant);
@@ -67,6 +71,7 @@ namespace WindowsFormsApp
             newFrm.Show();
         }
 
+        // after click goodsDeliver in menutrip so a small form will be displayed
         private void goodsDeliverToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ExportOrder export = new ExportOrder(this.id_accountant);
@@ -76,6 +81,7 @@ namespace WindowsFormsApp
             export.Show();
         }
 
+        // after click Staticstic in menutrip so a small form will be displayed
         private void staticsticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Statistics statistic = new Statistics();
@@ -85,6 +91,7 @@ namespace WindowsFormsApp
             statistic.Show();
         }
 
+        // after click CreateAgent in menutrip so a small form will be displayed
         private void createAccountForAgentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CreateAgent creaAgent = new CreateAgent(this.id_accountant);
