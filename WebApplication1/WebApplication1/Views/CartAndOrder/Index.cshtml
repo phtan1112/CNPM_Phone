@@ -1,0 +1,110 @@
+﻿
+@using WebApplication1.Models;
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="nav">
+    <div class="nav-first">
+        @*<p>Home</p>*@
+        @Html.ActionLink("List of Phones", "Index", "Home")
+        @Html.ActionLink("Cart", "Index", "CartAndOrder")
+        @Html.ActionLink("Order List", "Orders", "CartAndOrder")
+    </div>
+    <div class="nav-last">
+        <p>hello -  <span style="text-decoration:underline;font-weight:700;">@HttpContext.Current.Session["username"].ToString()</span></p>
+        <a aria-current="page" href="/Home/Logout" style="text-decoration: none; color: #fff;">Logout</a>
+    </div>
+</div> <!--nav-->
+
+
+<h2>Phones that you add to Cart</h2>
+
+@if (Session["Cart"] == null)
+{
+    <p>Your cart is nothing now</p>
+    @Html.ActionLink("Do you want to deliver some phones?", "Index", "Home", null, new { @class = "btn btn-primary" })
+}
+else
+{
+    using (Html.BeginForm("UpdateOrder", "CartAndOrder", FormMethod.Post))
+    {
+        <table  class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cart in (List<Cart>)Session["Cart"])
+                {
+                    <tr>
+                        <td>
+                            @* @phone_ordered.image*@
+                            <img class="image"
+                                 src=@cart.phone.image
+                                 alt=" /">
+                        </td>
+                        <td>
+                            @cart.phone.name
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="quantity" id="quantity" value="@cart.Quantity" onkeypress="return checkNumber(event, '@cart.phone.id')"><span id="error-message-@cart.phone.id" class="text-danger"></span>
+                        </td>
+                        <td>
+                            @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @cart.phone.price)
+                        </td>
+                        <td>
+                            @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @cart.phone.price * cart.Quantity)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", "CartAndOrder", new { id = cart.phone.id.ToString() }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you want to delete this?')" })
+
+                        </td>
+                    </tr>
+                }
+
+                <tr class="success">
+                    <td colspan="4"><b>Total:</b></td>
+                    <td>
+                        @{
+                            List<Cart> carts = (List<Cart>)Session["Cart"];
+                            var totalPrice = String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", carts.Sum(x => x.Quantity * x.phone.price));
+                        }
+
+                        <b>@totalPrice</b>
+                    </td>
+                </tr>
+
+                <tr class="info">
+                    <td colspan="4"><b>all number of phones:</b></td>
+                    <td>
+                        @{
+                            var totalQuantity = carts.Sum(x => x.Quantity);
+                        }
+
+                        <b>@totalQuantity</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="position:absolute; right: 20px;">
+
+            @Html.ActionLink("Back to list of phones", "Index", "Home", null, new { @class = "btn btn-warning" })
+            <button type="submit" class="btn btn-success">Update</button>
+            @Html.ActionLink("Check out", "ProcessingCash", "CartAndOrder", null, new { @class = "btn btn-primary" })
+        </div>
+    }
+}

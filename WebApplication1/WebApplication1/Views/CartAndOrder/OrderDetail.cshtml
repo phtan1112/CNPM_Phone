@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WebApplication1.Models.agent_order_detail>
+
+@{
+    ViewBag.Title = "OrderDetail";
+}
+<div class="nav">
+    <div class="nav-first">
+        @*<p>Home</p>*@
+        @Html.ActionLink("List of Phones", "Index", "Home")
+        @Html.ActionLink("Cart", "Index", "CartAndOrder")
+        @Html.ActionLink("Order List", "Orders", "CartAndOrder")
+    </div>
+    <div class="nav-last">
+        <p>hello -  <span style="text-decoration:underline;font-weight:700;">@HttpContext.Current.Session["username"].ToString()</span></p>
+        <a aria-current="page" href="/Home/Logout" style="text-decoration: none; color: #fff;">Logout</a>
+    </div>
+</div> <!--nav-->
+<h2>Order Detail</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                Phone Image
+            </th>
+            <th>
+                Phone Name
+            </th>
+            <th>
+                Phone ID
+            </th>
+            <th>
+                All Quantity
+            </th>
+            <th>
+                Total per this quantity of phone
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var phones = ViewBag.Phones as IEnumerable<WebApplication1.Models.phone>;
+        }
+        @foreach (var item in Model)
+        {
+            var phone_ordered = phones.FirstOrDefault(p => p.id == item.id_phone);
+            <tr>
+                <td></td>
+                <td>
+                    @* @phone_ordered.image*@
+                    <img class="image"
+                         src=@phone_ordered.image
+                         alt=" /">
+                </td>
+                <td>
+                    @phone_ordered.name
+                </td>
+                <td>
+                    @phone_ordered.id
+                </td>
+                <td>
+                    @item.quantity
+                </td>
+                <td>
+                    @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.quantity * @phone_ordered.price)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Back to Orders", "Orders", "CartAndOrder", null, new { @class = "btn btn-success" })
+@Html.ActionLink("Continuing Order?", "Index", "Home", null, new { @class = "btn btn-primary" })
+
+

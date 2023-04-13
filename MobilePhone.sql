@@ -57,6 +57,7 @@ create table agent_order(
 	id int primary key identity,
 	agent_id int not null,
 	order_date date not null,
+	total int,
 	status_order bit not null, -- 1 la dang chuyen, 0 la dang xu li (đang chuyễn nghĩa là đã pay successful)
 	status_pay bit not null, -- 1 la thanh toan roi, 0 la chua thanh toan,
 	method_pay varchar(50),
@@ -95,15 +96,15 @@ insert into agent(agent_name,username,address, password,phone_number,create_by_a
                                                   ('FPT','fpt11','SGN','456789',114,2),
                                                   ('DiDongViet','didongviet11','SGN','123456',115,1)
 go
-insert into phones(name,quantity,price,group_id)
-                values('Iphone 11 Pro max',10,12000000,1),  -- 1
-                      ('Iphone 12 Pro max',7,19000000,1),   -- 2
-                      ('Iphone 13 Pro max',20,22000000,1),  -- 3
-                      ('Xiaomi 13 8GB 256GB',15,22000000,3),    -- 4
-                      ('Samsung galaxy S23 ultra 256GB',30,26990000,2), -- 5
-                      ('Samsung galaxy Z Flip4 128GB',8,19990000,2), -- 6
-                      ('Xiaomi 12T',13,111490000,3),-- 7
-                      ('Iphone 13 mini 128GB',4,17490000,1)  -- 8
+insert into phones(name,quantity,price,group_id,image)
+                values('Iphone 11 Pro max',10,12000000,1,'https://cdn.tgdd.vn/Products/Images/42/200533/iphone-11-pro-max-green-600x600.jpg'),  -- 1
+                      ('Iphone 12 Pro max',7,19000000,1,'https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/1/_/1_251_1.jpg'),   -- 2
+                      ('Iphone 13 Pro max',20,22000000,1,'https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_09142021_inline.jpg.large.jpg'),  -- 3
+                      ('Xiaomi 13 8GB 256GB',15,22000000,3,'https://cdn.tgdd.vn/Products/Images/42/267984/xiaomi-13-thumb-den-600x600.jpg'),    -- 4
+                      ('Samsung galaxy S23 ultra 256GB',30,26990000,2,'https://cdn.tgdd.vn/Products/Images/42/249948/samsung-galaxy-s23-ultra-1-600x600.jpg'), -- 5
+                      ('Samsung galaxy Z Flip4 128GB',8,19990000,2,'https://cdn.tgdd.vn/Products/Images/42/258047/samsung-galaxy-z-flip4-5g-128gb-thumb-tim-600x600.jpg'), -- 6
+                      ('Xiaomi 12T',13,111490000,3,'https://cdn.tgdd.vn/Products/Images/42/279065/xiaomi-12t-thumb-600x600.jpg'),-- 7
+                      ('Iphone XS Max 128GB',4,17490000,1,'https://product.hstatic.net/1000370129/product/iphone-xs-max-128gb-99pct-gia-bao-nhieu-den_4567b63955884b81a215eb6ea991e09f_master.jpg')  -- 8
                         -- 8 phones with 8 id
 
 
@@ -120,18 +121,18 @@ insert into import_detail(import_id,phone_id,quantity) values(1,1,8),(1,2,5),(1,
                                                              (6,3,5),(6,2,2),(6,1,2)
 -- if price is null, và giá nó vẫn như  cũ
 go
-insert into agent_order(agent_id,order_date,status_order,status_pay,method_pay)
-                                            values(1,'2022-05-3',1,1,'Banking'),
-                                                  (2,'2022-05-9',0,1,'Momo'),
-                                                  (1,'2021-05-3',1,0,'Cash'),
-                                                  (2,'2021-08-3',0,0,'Cash'),
-                                                  (2,'2022-05-3',0,0,'Banking'),
-                                                  (1,'2022-07-3',1,0,'Cash'),
-                                                  (2,'2022-05-3',0,1,'Banking'),
-                                                  (1,'2022-05-3',0,0,'Momo'),
-                                                  (3,'2022-07-3',0,0,'Cash'),
-                                                  (3,'2022-05-3',0,1,'Banking'),
-                                                  (3,'2022-05-3',0,0,'Momo')
+insert into agent_order(agent_id,order_date,total,status_order,status_pay,method_pay)
+                                            values(1,'2022-05-3',477460000,1,1,'Banking'),
+                                                  (2,'2022-05-9',500440000,0,1,'Momo'),
+                                                  (1,'2021-05-3',795860000,1,0,'Cash'),
+                                                  (2,'2021-08-3',240430000,0,0,'Cash'),
+                                                  (2,'2022-05-3',240430000,0,0,'Banking'),
+                                                  (1,'2022-07-3',240430000,1,0,'Cash'),
+                                                  (2,'2022-05-3',240430000,0,1,'Banking'),
+                                                  (1,'2022-05-3',284430000,0,0,'Momo'),
+                                                  (3,'2022-07-3',240430000,0,0,'Cash'),
+                                                  (3,'2022-05-3',196430000,0,1,'Banking'),
+                                                  (3,'2022-05-3',240430000,0,0,'Momo')
 go
 insert into agent_order_detail(order_id ,id_phone,quantity)
 	values (1,2,2),(1,1,1),(1,4,3),(1,5,1),(1,7,3),
@@ -149,6 +150,8 @@ go
 insert into sold(phone_id,quantity) values(1,6),(2,3),(3,9),
                                             (4,3),(5,9),(6,7),(7,10),(8,3)
 go
+
+
 ---- store procedure (With sql server)
 -- xem lại thống kê hàng vào
 
@@ -198,22 +201,26 @@ AS
     END
 go
 
-
+select id,agent_name,address,phone_number from agent where username = 'fpt11' and password = 456789
 
 select * from phone_group
 select * from accountant
 select * from agent
-
 select * from phones
-
 select * from import
 select * from import_detail
-
 select * from agent_order
 select * from agent_order_detail
 select * from sold
+go
 
 EXEC goods_received
+go
+
 EXEC goods_sold
+go
+
 EXEC best_selling_goods
+go
+
 EXEC revenue_report_monthly

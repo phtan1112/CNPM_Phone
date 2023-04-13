@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MobilePhoneProductModelStoreContainer" CdmEntityContainer="MyConn">
+    <EntitySetMapping Name="agents">
+      <EntityTypeMapping TypeName="MobilePhoneProductModel.agent">
+        <MappingFragment StoreEntitySet="agent">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="agent_name" ColumnName="agent_name" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+          <ScalarProperty Name="create_by_accountID" ColumnName="create_by_accountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="agent_order">
+      <EntityTypeMapping TypeName="MobilePhoneProductModel.agent_order">
+        <MappingFragment StoreEntitySet="agent_order">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="agent_id" ColumnName="agent_id" />
+          <ScalarProperty Name="order_date" ColumnName="order_date" />
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="status_order" ColumnName="status_order" />
+          <ScalarProperty Name="status_pay" ColumnName="status_pay" />
+          <ScalarProperty Name="method_pay" ColumnName="method_pay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="agent_order_detail">
+      <EntityTypeMapping TypeName="MobilePhoneProductModel.agent_order_detail">
+        <MappingFragment StoreEntitySet="agent_order_detail">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="id_phone" ColumnName="id_phone" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="phones">
+      <EntityTypeMapping TypeName="MobilePhoneProductModel.phone">
+        <MappingFragment StoreEntitySet="phones">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

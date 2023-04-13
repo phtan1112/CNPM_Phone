@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MobilePhoneProductModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="agent">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="agent_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="phone_number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="create_by_accountID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="agent_order" Relationship="Self.FK__agent_ord__agent__5CD6CB2B" FromRole="agent" ToRole="agent_order" />
+  </EntityType>
+  <EntityType Name="agent_order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="agent_id" Type="Int32" Nullable="false" />
+    <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="total" Type="Int32" />
+    <Property Name="status_order" Type="Boolean" Nullable="false" />
+    <Property Name="status_pay" Type="Boolean" Nullable="false" />
+    <Property Name="method_pay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="agent" Relationship="Self.FK__agent_ord__agent__5CD6CB2B" FromRole="agent_order" ToRole="agent" />
+    <NavigationProperty Name="agent_order_detail" Relationship="Self.FK__agent_ord__order__5FB337D6" FromRole="agent_order" ToRole="agent_order_detail" />
+  </EntityType>
+  <EntityType Name="agent_order_detail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_id" Type="Int32" Nullable="false" />
+    <Property Name="id_phone" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="agent_order" Relationship="Self.FK__agent_ord__order__5FB337D6" FromRole="agent_order_detail" ToRole="agent_order" />
+    <NavigationProperty Name="phone" Relationship="Self.FK__agent_ord__id_ph__60A75C0F" FromRole="agent_order_detail" ToRole="phones" />
+  </EntityType>
+  <EntityType Name="phone">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="price" Type="Double" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="group_id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="agent_order_detail" Relationship="Self.FK__agent_ord__id_ph__60A75C0F" FromRole="phones" ToRole="agent_order_detail" />
+  </EntityType>
+  <Association Name="FK__agent_ord__agent__5CD6CB2B">
+    <End Role="agent" Type="Self.agent" Multiplicity="1" />
+    <End Role="agent_order" Type="Self.agent_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="agent">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="agent_order">
+        <PropertyRef Name="agent_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__agent_ord__order__5FB337D6">
+    <End Role="agent_order" Type="Self.agent_order" Multiplicity="1" />
+    <End Role="agent_order_detail" Type="Self.agent_order_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="agent_order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="agent_order_detail">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__agent_ord__id_ph__60A75C0F">
+    <End Role="phones" Type="Self.phone" Multiplicity="1" />
+    <End Role="agent_order_detail" Type="Self.agent_order_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="phones">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="agent_order_detail">
+        <PropertyRef Name="id_phone" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyConn" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="agents" EntityType="Self.agent" />
+    <EntitySet Name="agent_order" EntityType="Self.agent_order" />
+    <EntitySet Name="agent_order_detail" EntityType="Self.agent_order_detail" />
+    <EntitySet Name="phones" EntityType="Self.phone" />
+    <AssociationSet Name="FK__agent_ord__agent__5CD6CB2B" Association="Self.FK__agent_ord__agent__5CD6CB2B">
+      <End Role="agent" EntitySet="agents" />
+      <End Role="agent_order" EntitySet="agent_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__agent_ord__order__5FB337D6" Association="Self.FK__agent_ord__order__5FB337D6">
+      <End Role="agent_order" EntitySet="agent_order" />
+      <End Role="agent_order_detail" EntitySet="agent_order_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__agent_ord__id_ph__60A75C0F" Association="Self.FK__agent_ord__id_ph__60A75C0F">
+      <End Role="phones" EntitySet="phones" />
+      <End Role="agent_order_detail" EntitySet="agent_order_detail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebApplication1.Models.agent_order>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<div class="nav">
+    <div class="nav-first">
+        @*<p>Home</p>*@
+        @Html.ActionLink("List of Phones", "Index", "Home")
+        @Html.ActionLink("Cart", "Index", "CartAndOrder")
+        @Html.ActionLink("Order List", "Orders", "CartAndOrder")
+    </div>
+    <div class="nav-last">
+        <p>hello -  <span style="text-decoration:underline;font-weight:700;">@HttpContext.Current.Session["username"].ToString()</span></p>
+        <a aria-current="page" href="/Home/Logout" style="text-decoration: none; color: #fff;">Logout</a>
+    </div>
+</div> <!--nav-->
+
+<h2>List your Orders</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                
+            </th>
+
+            <th>Date Ordered</th>
+            <th>Status Delivery</th>
+            <th>Status Pay</th>
+            <th>Method pay</th>
+            <th>Agent's Name</th>
+            <th>
+                Total Price
+            </th>
+            <th>
+               
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var order in Model)
+        {
+            var agentName = Session["agent_name"];
+            string statusOrder = @order.status_order == true ? "Delivering" : "Processing";
+            string statusPay = @order.status_pay == true ? "Pay Successful" : "Ain't Pay";
+
+            <tr>
+                <td></td>
+
+                <td>@order.order_date.ToShortDateString()</td>
+                <td>@statusOrder</td>
+                <td>@statusPay</td>
+                <td>@order.method_pay</td>
+                <td>@agentName</td>
+                <td>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @order.total)</td>
+                <td><a href="/CartAndOrder/OrderDetail/@order.id">See Detail</a> </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Back to list of phones", "Index", "Home", null, new { @class = "btn btn-primary" })

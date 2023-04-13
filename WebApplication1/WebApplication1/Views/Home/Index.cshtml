@@ -1,31 +1,62 @@
-﻿@{
+﻿@model IEnumerable<WebApplication1.Models.phone>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="nav">
+    <div class="nav-first">
+        @*<p>Home</p>*@
+        @Html.ActionLink("List of Phones", "Index", "Home")
+        @Html.ActionLink("Cart", "Index", "CartAndOrder")
+        @Html.ActionLink("Order List", "Orders", "CartAndOrder")
+       @* <p>Orders List</p>*@
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="nav-last">
+        <p>hello -  <span style="text-decoration:underline;font-weight:700;">@HttpContext.Current.Session["username"].ToString()</span></p>
+        <a aria-current="page" href="/Home/Logout" style="text-decoration: none; color: #fff;">Logout</a>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+</div> <!--nav-->
+<div class="container">
+    <h1>List of Phones</h1>
+    <form action="" method="post" class="form-order">
+        <div class="product">
+
+            <table>
+                <tr>
+                    <th></th>
+                    <th>phone name</th>
+                    <th>quantity availble</th>
+                    <th>price</th>
+                    <td></td>
+                </tr>
+
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @*<img src='@Url.Content("~/Media/Images/Layout/"+item.image)' />*@
+                                <img class="image"
+                                     src=@item.image
+                                     alt=" /">
+                            <td>@item.name</td>
+                            <td>@item.quantity</td>
+                            <td>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:c}", @item.price)</td>
+                            <td>
+                                @Html.ActionLink("Add to cart", "OrderNow", "CartAndOrder", new { id = item.id.ToString() }, new { @class = "btn btn-success" })
+                             
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+
+            </table>
+        </div> <!--product-->
+
+
+    </form>
 </div>

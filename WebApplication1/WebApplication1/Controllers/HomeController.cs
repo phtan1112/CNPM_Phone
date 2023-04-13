@@ -1,30 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication1.Models;
+using System.Data;
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private MyConn db = new MyConn();
+        // GET: Phones
         public ActionResult Index()
         {
-            return View();
+            if (Session["username"] != null)
+            {
+                var products = db.phones.Where(x => x.quantity > 0).ToList();
+
+                return View(products);
+            }
+            else
+                {
+                    return Redirect("/User");
+                }
         }
+        
 
-        public ActionResult About()
+        
+        
+
+        // GET: Phones/Details/5
+       /* public ActionResult Details(int? id)
         {
-            ViewBag.Message = "Your application description page.";
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            phone phone = db.phones.Find(id);
+            if (phone == null)
+            {
+                return HttpNotFound();
+            }
+            return View(phone);
+        }*/
 
-            return View();
-        }
-
-        public ActionResult Contact()
+       /* public ActionResult ViewCart()
         {
-            ViewBag.Message = "Your contact page.";
+            if (Session["username"] != null)
+            {
+                var products = db.phones.Where(x => x.quantity > 0).ToList();
 
-            return View();
+                return View(products);
+            }
+                
+
+            }
+            else
+            {
+                return Redirect("/User");
+            }
+        }*/
+
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            Session["username"] = null;
+            return Redirect("/User");
         }
     }
 }

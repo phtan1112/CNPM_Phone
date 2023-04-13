@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "ProcessingCash";
+}
+
+<div class="nav">
+    <div class="nav-first">
+        @*<p>Home</p>*@
+        @Html.ActionLink("List of Phones", "Index", "Home")
+        @Html.ActionLink("Cart", "Index", "CartAndOrder")
+        @Html.ActionLink("Order List", "Orders", "CartAndOrder")
+    </div>
+    <div class="nav-last">
+        <p>hello -  <span style="text-decoration:underline;font-weight:700;">@HttpContext.Current.Session["username"].ToString()</span></p>
+        <a aria-current="page" href="/Home/Logout" style="text-decoration: none; color: #fff;">Logout</a>
+    </div>
+</div> <!--nav-->
+
+<h2>Select a kind of payment:</h2>
+@using (Html.BeginForm("Cash", "CartAndOrder", FormMethod.Post))
+{
+    <div class="method_pay">
+        <h2 style="margin-bottom: 5px;">Method Payment</h2>
+        <table>
+            <tr>
+                <td><input id="1" name="pay" type="radio" value="Cash" checked></td>
+                <td><label for="1">Cash</label></td>
+            </tr>
+            <tr>
+                <td><input id="2" name="pay" type="radio" value="Momo"></td>
+                <td><label for="2">Momo</label></td>
+            </tr>
+            <tr>
+                <td><input id="3" name="pay" type="radio" value="Banking"></td>
+                <td><label for="3">Banking</label></td>
+            </tr>
+        </table>
+    </div>
+
+    <button type="submit" class="btn btn-success">Done</button>
+}
+
+
+
+

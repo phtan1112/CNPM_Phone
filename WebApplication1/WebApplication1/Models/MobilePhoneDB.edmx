@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MobilePhoneProductModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="agent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="agent_name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="20" />
+          <Property Name="address" Type="varchar" MaxLength="250" />
+          <Property Name="phone_number" Type="varchar" MaxLength="12" />
+          <Property Name="create_by_accountID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="agent_order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="agent_id" Type="int" Nullable="false" />
+          <Property Name="order_date" Type="date" Nullable="false" />
+          <Property Name="total" Type="int" />
+          <Property Name="status_order" Type="bit" Nullable="false" />
+          <Property Name="status_pay" Type="bit" Nullable="false" />
+          <Property Name="method_pay" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="agent_order_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="id_phone" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="phones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="price" Type="float" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="image" Type="varchar" MaxLength="255" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__agent_ord__agent__5CD6CB2B">
+          <End Role="agent" Type="Self.agent" Multiplicity="1" />
+          <End Role="agent_order" Type="Self.agent_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agent_order">
+              <PropertyRef Name="agent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__agent_ord__id_ph__60A75C0F">
+          <End Role="phones" Type="Self.phones" Multiplicity="1" />
+          <End Role="agent_order_detail" Type="Self.agent_order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agent_order_detail">
+              <PropertyRef Name="id_phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__agent_ord__order__5FB337D6">
+          <End Role="agent_order" Type="Self.agent_order" Multiplicity="1" />
+          <End Role="agent_order_detail" Type="Self.agent_order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agent_order_detail">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MobilePhoneProductModelStoreContainer">
+          <EntitySet Name="agent" EntityType="Self.agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="agent_order" EntityType="Self.agent_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="agent_order_detail" EntityType="Self.agent_order_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="phones" EntityType="Self.phones" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__agent_ord__agent__5CD6CB2B" Association="Self.FK__agent_ord__agent__5CD6CB2B">
+            <End Role="agent" EntitySet="agent" />
+            <End Role="agent_order" EntitySet="agent_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__agent_ord__id_ph__60A75C0F" Association="Self.FK__agent_ord__id_ph__60A75C0F">
+            <End Role="phones" EntitySet="phones" />
+            <End Role="agent_order_detail" EntitySet="agent_order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__agent_ord__order__5FB337D6" Association="Self.FK__agent_ord__order__5FB337D6">
+            <End Role="agent_order" EntitySet="agent_order" />
+            <End Role="agent_order_detail" EntitySet="agent_order_detail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MobilePhoneProductModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="agent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="agent_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="phone_number" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="create_by_accountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="agent_order" Relationship="Self.FK__agent_ord__agent__5CD6CB2B" FromRole="agent" ToRole="agent_order" />
+        </EntityType>
+        <EntityType Name="agent_order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="agent_id" Type="Int32" Nullable="false" />
+          <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="total" Type="Int32" />
+          <Property Name="status_order" Type="Boolean" Nullable="false" />
+          <Property Name="status_pay" Type="Boolean" Nullable="false" />
+          <Property Name="method_pay" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="agent" Relationship="Self.FK__agent_ord__agent__5CD6CB2B" FromRole="agent_order" ToRole="agent" />
+          <NavigationProperty Name="agent_order_detail" Relationship="Self.FK__agent_ord__order__5FB337D6" FromRole="agent_order" ToRole="agent_order_detail" />
+        </EntityType>
+        <EntityType Name="agent_order_detail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="id_phone" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="agent_order" Relationship="Self.FK__agent_ord__order__5FB337D6" FromRole="agent_order_detail" ToRole="agent_order" />
+          <NavigationProperty Name="phone" Relationship="Self.FK__agent_ord__id_ph__60A75C0F" FromRole="agent_order_detail" ToRole="phones" />
+        </EntityType>
+        <EntityType Name="phone">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Double" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="agent_order_detail" Relationship="Self.FK__agent_ord__id_ph__60A75C0F" FromRole="phones" ToRole="agent_order_detail" />
+        </EntityType>
+        <Association Name="FK__agent_ord__agent__5CD6CB2B">
+          <End Role="agent" Type="Self.agent" Multiplicity="1" />
+          <End Role="agent_order" Type="Self.agent_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agent_order">
+              <PropertyRef Name="agent_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__agent_ord__order__5FB337D6">
+          <End Role="agent_order" Type="Self.agent_order" Multiplicity="1" />
+          <End Role="agent_order_detail" Type="Self.agent_order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agent_order_detail">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__agent_ord__id_ph__60A75C0F">
+          <End Role="phones" Type="Self.phone" Multiplicity="1" />
+          <End Role="agent_order_detail" Type="Self.agent_order_detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agent_order_detail">
+              <PropertyRef Name="id_phone" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyConn" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="agents" EntityType="Self.agent" />
+          <EntitySet Name="agent_order" EntityType="Self.agent_order" />
+          <EntitySet Name="agent_order_detail" EntityType="Self.agent_order_detail" />
+          <EntitySet Name="phones" EntityType="Self.phone" />
+          <AssociationSet Name="FK__agent_ord__agent__5CD6CB2B" Association="Self.FK__agent_ord__agent__5CD6CB2B">
+            <End Role="agent" EntitySet="agents" />
+            <End Role="agent_order" EntitySet="agent_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__agent_ord__order__5FB337D6" Association="Self.FK__agent_ord__order__5FB337D6">
+            <End Role="agent_order" EntitySet="agent_order" />
+            <End Role="agent_order_detail" EntitySet="agent_order_detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__agent_ord__id_ph__60A75C0F" Association="Self.FK__agent_ord__id_ph__60A75C0F">
+            <End Role="phones" EntitySet="phones" />
+            <End Role="agent_order_detail" EntitySet="agent_order_detail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MobilePhoneProductModelStoreContainer" CdmEntityContainer="MyConn">
+          <EntitySetMapping Name="agents">
+            <EntityTypeMapping TypeName="MobilePhoneProductModel.agent">
+              <MappingFragment StoreEntitySet="agent">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="agent_name" ColumnName="agent_name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="create_by_accountID" ColumnName="create_by_accountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="agent_order">
+            <EntityTypeMapping TypeName="MobilePhoneProductModel.agent_order">
+              <MappingFragment StoreEntitySet="agent_order">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="agent_id" ColumnName="agent_id" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="status_order" ColumnName="status_order" />
+                <ScalarProperty Name="status_pay" ColumnName="status_pay" />
+                <ScalarProperty Name="method_pay" ColumnName="method_pay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="agent_order_detail">
+            <EntityTypeMapping TypeName="MobilePhoneProductModel.agent_order_detail">
+              <MappingFragment StoreEntitySet="agent_order_detail">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="id_phone" ColumnName="id_phone" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="phones">
+            <EntityTypeMapping TypeName="MobilePhoneProductModel.phone">
+              <MappingFragment StoreEntitySet="phones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

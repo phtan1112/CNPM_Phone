@@ -1,0 +1,157 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: #000;
+    color: #fff;
+    padding: 20px 20px;
+}
+
+    .nav .nav-first {
+        display: flex;
+        gap: 16px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+        .nav .nav-first p:hover {
+            opacity: 0.9;
+        }
+
+    .nav .nav-last {
+        display: flex;
+        gap: 16px;
+        cursor: pointer;
+    }
+
+        .nav .nav-last a:hover {
+            opacity: 0.9;
+        }
+
+h1 {
+    padding: 5px 20px;
+}
+
+.form-order {
+    display: flex;
+    width: 100%;
+    padding: 15px 20px;
+    gap: 10px;
+}
+
+.image {
+    width: 90px;
+    height: 80px;
+}
+
+.product {
+    flex: 1;
+    border: 2px solid #000;
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+
+    .product table {
+        width: 100%;
+    }
+
+td {
+    text-align: center;
+}
+
+.product tr input[type='number'] {
+    width: 50px;
+    height: 23px;
+}
+
+
+.order-pay {
+    width: 30%;
+    padding: 5px 20px;
+}
+
+    .order-pay .method_pay,
+    .address_delivery,
+    .phonenumber_delivery,
+    .Total_price,
+    .btn_order {
+        margin: 20px 10px;
+    }
+
+        .address_delivery input,
+        .phonenumber_delivery input {
+            height: 25px;
+        }
+
+        .btn_order button {
+            border: none;
+            width: 64px;
+            height: 40px;
+            color: #fff;
+            background-color: #5fc522;
+            cursor: pointer;
+        }
+
+            .btn_order button:hover {
+                opacity: 0.9;
+            }
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+
+
+.form1 {
+    border: 3px solid #f1f1f1;
+   
+    padding:200px;
+}
+
+.container1 input[type=text],
+.container1 input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.btn-login {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+    .btn-login:hover {
+        opacity: 0.8;
+    }
+
+.container1 {
+    padding: 16px;
+}
+
+.tag-a{
+    text-decoration:none;
+    color: #fff;
+    
+}
+
+.tag-a:hover {
+   opacity: 0.9;
+}
+.btn1{
+
+}
